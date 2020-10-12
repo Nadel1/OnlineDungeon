@@ -18,9 +18,10 @@ public class TeamManager : MonoBehaviour
     [SerializeField]
     private GameObject playerPrefab;
     private List<Player> playerList = new List<Player>();
+    private Dictionary<int, List<Player>> teamMembers = new Dictionary<int, List<Player>>();
     Player[] allPlayers;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //playerList = PhotonNetwork.CurrentRoom.Players.Values.ToList();
         //generate slots
@@ -29,6 +30,7 @@ public class TeamManager : MonoBehaviour
             team.GetComponent<Team>().SpawnSlots(2);
         }
 
+
         allPlayers = PhotonNetwork.PlayerListOthers;
         playerList = PhotonNetwork.CurrentRoom.Players.Values.ToList();
         //generate players
@@ -36,13 +38,14 @@ public class TeamManager : MonoBehaviour
         {
             GameObject label=Instantiate(playerPrefab, players.transform);
             label.GetComponentInChildren<Text>().text = p.NickName;
-            
+            label.GetComponent<PlayerRef>().player = p;
+            label.GetComponent<PlayerRef>().name = p.NickName;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class DragDrop : MonoBehaviour,IPointerDownHandler,IBeginDragHandler,IEndDragHandler,IDragHandler
 {
 
     private Canvas canvas;
+
+    public Player player;
 
     [SerializeField]
     private RectTransform startPos;
@@ -67,7 +71,7 @@ public class DragDrop : MonoBehaviour,IPointerDownHandler,IBeginDragHandler,IEnd
         }
         if (!slot)
         {
-            rectTransform.anchoredPosition = startPos.anchoredPosition;
+            rectTransform.position = startPos.position;
         }
         else
         {
@@ -105,5 +109,13 @@ public class DragDrop : MonoBehaviour,IPointerDownHandler,IBeginDragHandler,IEnd
         rectTransform.position = startPos.position;
     }
  
-   
+    public void SetPlayer(Player p)
+    {
+        this.player = p;
+    }
+
+    public Player GetPlayer()
+    {
+        return player;
+    }
 }

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class Team : MonoBehaviour
 {
@@ -9,6 +11,10 @@ public class Team : MonoBehaviour
     private GameObject slotPrefab;
 
     public GameObject[] slots;
+    public int number;
+
+    public List<Player> teamMembers = new List<Player>();
+    public List<string> teamNames = new List<string>();
     public void SpawnSlots(int number)
     {
         slots = new GameObject[number];
