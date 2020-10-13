@@ -79,6 +79,7 @@ public class DragDrop : MonoBehaviour,IPointerDownHandler,IBeginDragHandler,IEnd
             {
                 if (newPos.gameObject.GetComponent<TeamSlot>().GetPlayer() == null)
                 {
+                    GetComponent<PlayerRef>().team = newPos.gameObject.GetComponent<TeamSlot>().team;
                     //deleting old player ref and setting new ref
                     startPos.gameObject.GetComponent<TeamSlot>().SetPlayer(null);
                     newPos.gameObject.GetComponent<TeamSlot>().SetPlayer(this.gameObject);
@@ -89,6 +90,8 @@ public class DragDrop : MonoBehaviour,IPointerDownHandler,IBeginDragHandler,IEnd
                     GameObject temp = newPos.gameObject.GetComponent<TeamSlot>().GetPlayer();
                     startPos.gameObject.GetComponent<TeamSlot>().SetPlayer(temp);
                     temp.GetComponent<DragDrop>().SetStartPos(startPos);
+                    temp.GetComponent<PlayerRef>().team = startPos.gameObject.GetComponent<TeamSlot>().team;
+                    GetComponent<PlayerRef>().team = newPos.gameObject.GetComponent<TeamSlot>().team;
                     newPos.gameObject.GetComponent<TeamSlot>().SetPlayer(this.gameObject);
                     SetStartPos(newPos);
                 }

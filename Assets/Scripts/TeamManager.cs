@@ -25,9 +25,11 @@ public class TeamManager : MonoBehaviour
     {
         //playerList = PhotonNetwork.CurrentRoom.Players.Values.ToList();
         //generate slots
+
         foreach(GameObject team in teams)
         {
             team.GetComponent<Team>().SpawnSlots(2);
+            
         }
 
 

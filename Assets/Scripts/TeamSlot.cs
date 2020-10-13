@@ -13,6 +13,7 @@ public class TeamSlot : MonoBehaviour, IDropHandler
     private List<Player> players = new List<Player>();
 
     Player p;
+    public int team;
 
     public void SetPlayer(GameObject player)
     {

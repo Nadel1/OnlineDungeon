@@ -73,6 +73,8 @@ namespace Photon.Pun.Demo.PunBasics
         string playerName = "";
         string roomName = "";
 
+        private Dictionary<int, List<Player>> teamMembers = new Dictionary<int, List<Player>>();
+
         // Start Method
         private void Start()
         {
@@ -125,7 +127,7 @@ namespace Photon.Pun.Demo.PunBasics
 
         public void SetTeams()
         {
-            if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
+            if (PhotonNetwork.CurrentRoom.PlayerCount > maxPlayersPerRoom - 1)
             {
                 controlPanel.SetActive(false);
                 teamPanel.SetActive(true);
@@ -138,7 +140,7 @@ namespace Photon.Pun.Demo.PunBasics
         }
         public void LoadArena()
         {
-            if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
+            if (PhotonNetwork.CurrentRoom.PlayerCount > maxPlayersPerRoom-1)
             {
                 PhotonNetwork.LoadLevel("Dungeon");
             }
@@ -178,6 +180,37 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 playerStatus.text = "Connected to Lobby";
             }
+        }
+
+        public void FinalizeTeams()
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("PlayerTag");
+            
+            for(int i = 0; i < players.Length; i++)
+            {
+                PlayerRef temp=players[i].GetComponent<PlayerRef>();
+                int team = temp.team;
+                Player p = temp.player;
+                List<Player> alreadyIn;
+                bool exists= teamMembers.TryGetValue(team, out alreadyIn);
+                if (exists)
+                {
+                    teamMembers.Remove(team);
+                    alreadyIn.Add(p);
+                    teamMembers.Add(team, alreadyIn);
+                }
+                else
+                {
+                    List<Player> newPlayers = new List<Player>();
+                    newPlayers.Add(p);
+                    teamMembers.Add(team, newPlayers);
+                }
+            }
+            List<Player> tempL;
+            teamMembers.TryGetValue(0, out tempL);
+            Debug.Log(tempL[0].NickName);
+            teamMembers.TryGetValue(1, out tempL);
+            Debug.Log(tempL[0].NickName);
         }
     }
 }

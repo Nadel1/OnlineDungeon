@@ -11,7 +11,7 @@ public class Team : MonoBehaviour
     private GameObject slotPrefab;
 
     public GameObject[] slots;
-    public int number;
+    public int name;
 
     public List<Player> teamMembers = new List<Player>();
     public List<string> teamNames = new List<string>();
@@ -23,6 +23,7 @@ public class Team : MonoBehaviour
             GameObject slot=Instantiate(slotPrefab, this.transform);
             
            slot.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,-(i+1) * 80);
+            slot.GetComponent<TeamSlot>().team = name;
         }
 
     }
