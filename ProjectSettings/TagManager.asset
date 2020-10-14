@@ -6,6 +6,8 @@ TagManager:
   tags:
   - TeamSlot
   - Canvas
+  - PlayerTag
+  - DDOL
   layers:
   - Default
   - TransparentFX
