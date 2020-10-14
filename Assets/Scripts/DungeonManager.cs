@@ -32,6 +32,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 using Photon.Realtime;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Photon.Pun.Demo.PunBasics
 {
@@ -39,15 +41,28 @@ namespace Photon.Pun.Demo.PunBasics
     {
         public GameObject winnerUI;
 
-        public GameObject player1SpawnPosition;
-        public GameObject player2SpawnPosition;
+        public GameObject team1Spawn;
+        public GameObject team2Spawn;
+
+
 
         private GameObject player1;
         private GameObject player2;
 
+        private GameObject DDOL;
+
+        private Dictionary<int, List<Player>> teamMembers = new Dictionary<int, List<Player>>();
+
+
         // Start Method
         private void Start()
         {
+            DDOL = GameObject.FindGameObjectWithTag("DDOL");
+            teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
+            List<Player> team0 = teamMembers[0];
+            List<Player> team1 = teamMembers[teamMembers.Count-1];
+            int team;
+
             if (!PhotonNetwork.IsConnected)
             {
                 SceneManager.LoadScene("Launcher");
@@ -56,14 +71,34 @@ namespace Photon.Pun.Demo.PunBasics
 
             if (PlayerManager.LocalPlayerInstance == null)
             {
+
+
+                Player p=PhotonNetwork.LocalPlayer;
+                team = team0.Contains(p) ? 0 : 1;
+                GameObject[] spawnPos;
+                Transform spawnAt=null;
+
+                spawnPos=(team==0)? team1Spawn.GetComponent<SpawningPos>().spawnPos: team2Spawn.GetComponent<SpawningPos>().spawnPos;
+
+                spawnPos = team1Spawn.GetComponent<SpawningPos>().spawnPos;
+                spawnAt= spawnPos[0].transform;
+                /*for (int i = 0; i < spawnPos.Length; i++)
+                {
+                    if (spawnPos[i] == null)
+                    {
+                        spawnAt = spawnPos[i].transform;
+                        break;
+                    }
+                }*/
+
                 if (PhotonNetwork.IsMasterClient)
                 {
                     Debug.Log("Instantiating Player 1");
-                    player1 = PhotonNetwork.Instantiate("Player", player1SpawnPosition.transform.position, player1SpawnPosition.transform.rotation, 0);
+                    player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
                 }
                 else
                 {
-                    player2 = PhotonNetwork.Instantiate("Player", player2SpawnPosition.transform.position, player2SpawnPosition.transform.rotation, 0);
+                    player2 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
                 }
             }
         }

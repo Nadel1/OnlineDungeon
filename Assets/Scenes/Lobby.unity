@@ -2492,9 +2492,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2057530359}
   - component: {fileID: 2057530360}
+  - component: {fileID: 2057530361}
   m_Layer: 0
   m_Name: LaunchManager
-  m_TagString: Untagged
+  m_TagString: DDOL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2536,6 +2537,18 @@ MonoBehaviour:
   roomJoinUI: {fileID: 26504975}
   buttonLoadArena: {fileID: 520070538}
   buttonJoinRoom: {fileID: 386489454}
+--- !u!114 &2057530361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057530358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e35b59d1b9dffd488e94ff8ce6e93fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2120827226
 GameObject:
   m_ObjectHideFlags: 0

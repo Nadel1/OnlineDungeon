@@ -181,7 +181,10 @@ namespace Photon.Pun.Demo.PunBasics
                 playerStatus.text = "Connected to Lobby";
             }
         }
-
+        public  Dictionary<int, List<Player>> GetTeamMembers()
+        {
+            return teamMembers;
+        }
         public void FinalizeTeams()
         {
             GameObject[] players = GameObject.FindGameObjectsWithTag("PlayerTag");
@@ -208,9 +211,10 @@ namespace Photon.Pun.Demo.PunBasics
             }
             List<Player> tempL;
             teamMembers.TryGetValue(0, out tempL);
-            Debug.Log(tempL[0].NickName);
+
             teamMembers.TryGetValue(1, out tempL);
-            Debug.Log(tempL[0].NickName);
+
+            PhotonNetwork.LoadLevel("Dungeon");
         }
     }
 }
