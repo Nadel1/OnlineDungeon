@@ -35,6 +35,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using System.Linq;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Photon.Pun.Demo.PunBasics
 {
@@ -73,8 +74,11 @@ namespace Photon.Pun.Demo.PunBasics
         string playerName = "";
         string roomName = "";
 
-        private Dictionary<int, List<Player>> teamMembers = new Dictionary<int, List<Player>>();
 
+        
+        private Dictionary<int, List<Player>> teamMembers = new Dictionary<int, List<Player>>();
+        private Hashtable team0 = new Hashtable();
+        private Hashtable team1 = new Hashtable();
         // Start Method
         private void Start()
         {
@@ -209,12 +213,23 @@ namespace Photon.Pun.Demo.PunBasics
                     teamMembers.Add(team, newPlayers);
                 }
             }
-            List<Player> tempL;
-            teamMembers.TryGetValue(0, out tempL);
 
-            teamMembers.TryGetValue(1, out tempL);
+            for (int j = 0; j < teamMembers[0].Count; j++)
+            {
+                team0.Add(j, teamMembers[0][j]);
+            }
+            if (teamMembers.Count > 1)
+            {
+                for (int j = 0; j < teamMembers[1].Count; j++)
+                {
+                    team0.Add(j, teamMembers[0][j]);
+                }
+            }
 
+            PhotonNetwork.SetPlayerCustomProperties(team0);
+            PhotonNetwork.SetPlayerCustomProperties(team1);
             PhotonNetwork.LoadLevel("Dungeon");
         }
+
     }
 }

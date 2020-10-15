@@ -53,54 +53,62 @@ namespace Photon.Pun.Demo.PunBasics
 
         private Dictionary<int, List<Player>> teamMembers = new Dictionary<int, List<Player>>();
 
-
+       
         // Start Method
         private void Start()
         {
             DDOL = GameObject.FindGameObjectWithTag("DDOL");
-            teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
-            List<Player> team0 = teamMembers[0];
-            List<Player> team1 = teamMembers[teamMembers.Count-1];
-            int team;
-
-            if (!PhotonNetwork.IsConnected)
+            if (PhotonNetwork.IsMasterClient)
             {
-                SceneManager.LoadScene("Launcher");
-                return;
-            }
+                teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
+                List<Player> team0 = teamMembers[0];
+                List<Player> team1 = teamMembers[1];
+                int team;
 
-            if (PlayerManager.LocalPlayerInstance == null)
-            {
-
-
-                Player p=PhotonNetwork.LocalPlayer;
-                team = team0.Contains(p) ? 0 : 1;
-                GameObject[] spawnPos;
-                Transform spawnAt=null;
-
-                spawnPos=(team==0)? team1Spawn.GetComponent<SpawningPos>().spawnPos: team2Spawn.GetComponent<SpawningPos>().spawnPos;
-
-                spawnPos = team1Spawn.GetComponent<SpawningPos>().spawnPos;
-                spawnAt= spawnPos[0].transform;
-                /*for (int i = 0; i < spawnPos.Length; i++)
+                if (!PhotonNetwork.IsConnected)
                 {
-                    if (spawnPos[i] == null)
+                    SceneManager.LoadScene("Launcher");
+                    return;
+                }
+
+
+                if (PlayerManager.LocalPlayerInstance == null)
+                {
+
+
+                    Player p = PhotonNetwork.LocalPlayer;
+                    team = team0.Contains(p) ? 0 : 1;
+                    GameObject[] spawnPos;
+                    Transform spawnAt = null;
+                    int index;
+                    spawnPos = (team == 0) ? team1Spawn.GetComponent<SpawningPos>().spawnPos : team2Spawn.GetComponent<SpawningPos>().spawnPos;
+
+                    spawnPos = team1Spawn.GetComponent<SpawningPos>().spawnPos;
+
+                    index = team0.Contains(p) ? team0.IndexOf(p) : team1.IndexOf(p);
+                    spawnAt = spawnPos[index].transform;
+                    /*for (int i = 0; i < spawnPos.Length; i++)
                     {
-                        spawnAt = spawnPos[i].transform;
-                        break;
-                    }
-                }*/
+                        if (spawnPos[i] == null)
+                        {
+                            spawnAt = spawnPos[i].transform;
+                            break;
+                        }
+                    }*/
 
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    Debug.Log("Instantiating Player 1");
                     player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
-                }
-                else
-                {
-                    player2 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
+                    /*if (PhotonNetwork.IsMasterClient)
+                    {
+                        Debug.Log("Instantiating Player 1");
+                        player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
+                    }
+                    else
+                    {
+                        player2 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
+                    }*/
                 }
             }
+            
         }
         // Update Method
         private void Update()
