@@ -34,6 +34,8 @@ using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using System.Collections.Generic;
 using System.Linq;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Photon.Pun;
 
 namespace Photon.Pun.Demo.PunBasics
 {
@@ -53,17 +55,21 @@ namespace Photon.Pun.Demo.PunBasics
 
         private Dictionary<int, List<Player>> teamMembers = new Dictionary<int, List<Player>>();
 
-       
+        private List<Player> team0 = new List<Player>();
+        private List<Player> team1 = new List<Player>();
+        private Launcher ls;
+
+        public int team;
+
         // Start Method
         private void Start()
         {
             DDOL = GameObject.FindGameObjectWithTag("DDOL");
-            if (PhotonNetwork.IsMasterClient)
-            {
+            
                 teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
-                List<Player> team0 = teamMembers[0];
-                List<Player> team1 = teamMembers[1];
-                int team;
+                team0 = teamMembers[0];
+                team1 = teamMembers[1];
+                
 
                 if (!PhotonNetwork.IsConnected)
                 {
@@ -106,7 +112,7 @@ namespace Photon.Pun.Demo.PunBasics
                     {
                         player2 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
                     }*/
-                }
+                
             }
             
         }
@@ -129,6 +135,17 @@ namespace Photon.Pun.Demo.PunBasics
         }
 
         //Helper Methods
+        [PunRPC]
+        void RPC_GetTeam()
+        {
+            Player p = PhotonNetwork.LocalPlayer;
+            team = team0.Contains(p) ? 0 : 1;
+        }
 
+        [PunRPC]
+        void RPC_SendTeam(int team)
+        {
+            this.team = team;
+        }
     }
 }

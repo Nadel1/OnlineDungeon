@@ -77,8 +77,11 @@ namespace Photon.Pun.Demo.PunBasics
 
         
         private Dictionary<int, List<Player>> teamMembers = new Dictionary<int, List<Player>>();
-        private Hashtable team0 = new Hashtable();
-        private Hashtable team1 = new Hashtable();
+        private List<Player> team0 = new List<Player>();
+        private List<Player> team1 = new List<Player>();
+        public int team;
+        public PhotonView PV;
+
         // Start Method
         private void Start()
         {
@@ -89,6 +92,7 @@ namespace Photon.Pun.Demo.PunBasics
             buttonLoadArena.SetActive(false);
 
             ConnectToPhoton();
+            PV = GetComponent<PhotonView>();
         }
 
         private void Awake()
@@ -189,6 +193,7 @@ namespace Photon.Pun.Demo.PunBasics
         {
             return teamMembers;
         }
+
         public void FinalizeTeams()
         {
             GameObject[] players = GameObject.FindGameObjectsWithTag("PlayerTag");
@@ -213,7 +218,10 @@ namespace Photon.Pun.Demo.PunBasics
                     teamMembers.Add(team, newPlayers);
                 }
             }
+            team0 = teamMembers[0];
+            team1 = teamMembers[1];
 
+            /*
             for (int j = 0; j < teamMembers[0].Count; j++)
             {
                 team0.Add(j, teamMembers[0][j]);
@@ -227,9 +235,25 @@ namespace Photon.Pun.Demo.PunBasics
             }
 
             PhotonNetwork.SetPlayerCustomProperties(team0);
-            PhotonNetwork.SetPlayerCustomProperties(team1);
+            PhotonNetwork.SetPlayerCustomProperties(team1);*/
+          
             PhotonNetwork.LoadLevel("Dungeon");
         }
 
+
+        //Helper Methods
+        [PunRPC]
+        void RPC_GetTeam()
+        {
+            Player p = PhotonNetwork.LocalPlayer;
+            team = team0.Contains(p) ? 0 : 1;
+            PV.RPC("RPC_SendTeam", RpcTarget.OthersBuffered,team);
+        }
+
+        [PunRPC]
+        void RPC_SendTeam(int team)
+        {
+            this.team = team;
+        }
     }
 }
