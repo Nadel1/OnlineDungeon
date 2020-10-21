@@ -61,7 +61,7 @@ namespace Photon.Pun.Demo.PunBasics
         private PhotonView PV;
 
         public int team=100;
-
+        private bool setPlayer = false;
         // Start Method
         private void Start()
         {
@@ -71,7 +71,9 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 PV.RPC("RPC_GetTeam", RpcTarget.MasterClient,PhotonNetwork.LocalPlayer);
             }
-            PhotonNetwork.Instantiate("Player", new Vector3(0,0,0), Quaternion.identity, 0);
+            player1=PhotonNetwork.Instantiate("Player", new Vector3(0,0,0), Quaternion.identity, 0);
+            player1.GetComponentInChildren<PlayerMovement>().team = team;
+
             //teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
             //team0 = teamMembers[0];
             //team1 = teamMembers[1];
@@ -123,36 +125,16 @@ namespace Photon.Pun.Demo.PunBasics
 
         }
         // Update Method
-        /*private void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
             GameObject[] spawnPos;
             Transform spawnAt = null;
 
-            if (player1 == null&&team!=100)
-            {
-                spawnPos = (team == 0) ? team1Spawn.GetComponent<SpawningPos>().spawnPos : team2Spawn.GetComponent<SpawningPos>().spawnPos;
-                if (team == 0)
-                {
-                    if (PV.IsMine)
-                    {
-                        spawnAt = spawnPos[0].transform;
-                        player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
-                    }
-                }
-                else
-                {
-                    if (PV.IsMine)
-                    {
-                        spawnAt = spawnPos[0].transform;
-                        player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
-                    }
-                }
-            }
 
         }
-        */
+
         // Photon Methods
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {

@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject cam;
     private Camera mainCamera;
 
+    public int team = 3;
+    private bool setPlayer;
+    private GameObject team1Spawn;
+    private GameObject team2Spawn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +32,18 @@ public class PlayerMovement : MonoBehaviour
         PV = GetComponent<PhotonView>();
         rb = GetComponent<Rigidbody>();
         mainCamera = Camera.main;
+        team1Spawn = GameObject.FindGameObjectWithTag("spawn1");
+        team2Spawn = GameObject.FindGameObjectWithTag("spawn2");
+        
+            if (team == 0)
+            {
+                transform.position = team1Spawn.transform.position;
+            }
+            else
+            {
+                transform.position = team2Spawn.transform.position;
+            }
+
     }
 
     private void FixedUpdate()
