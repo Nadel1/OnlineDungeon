@@ -123,7 +123,7 @@ namespace Photon.Pun.Demo.PunBasics
 
         }
         // Update Method
-        private void Update()
+        /*private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
@@ -152,7 +152,7 @@ namespace Photon.Pun.Demo.PunBasics
             }
 
         }
-
+        */
         // Photon Methods
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
