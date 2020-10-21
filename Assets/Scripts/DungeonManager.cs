@@ -58,19 +58,25 @@ namespace Photon.Pun.Demo.PunBasics
         private List<Player> team0 = new List<Player>();
         private List<Player> team1 = new List<Player>();
         private Launcher ls;
+        private PhotonView PV;
 
-        public int team;
+        public int team=100;
 
         // Start Method
         private void Start()
         {
             DDOL = GameObject.FindGameObjectWithTag("DDOL");
+            PV = GetComponent<PhotonView>();
+            if (PV.IsMine)
+            {
+                PV.RPC("RPC_GetTeam", RpcTarget.MasterClient,PhotonNetwork.LocalPlayer);
+            }
             
-                teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
-                team0 = teamMembers[0];
-                team1 = teamMembers[1];
+                //teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
+                //team0 = teamMembers[0];
+                //team1 = teamMembers[1];
                 
-
+            /*
                 if (!PhotonNetwork.IsConnected)
                 {
                     SceneManager.LoadScene("Launcher");
@@ -92,7 +98,7 @@ namespace Photon.Pun.Demo.PunBasics
                     spawnPos = team1Spawn.GetComponent<SpawningPos>().spawnPos;
 
                     index = team0.Contains(p) ? team0.IndexOf(p) : team1.IndexOf(p);
-                    spawnAt = spawnPos[index].transform;
+                    spawnAt = spawnPos[index].transform;*/
                     /*for (int i = 0; i < spawnPos.Length; i++)
                     {
                         if (spawnPos[i] == null)
@@ -102,7 +108,7 @@ namespace Photon.Pun.Demo.PunBasics
                         }
                     }*/
 
-                    player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
+                  // player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
                     /*if (PhotonNetwork.IsMasterClient)
                     {
                         Debug.Log("Instantiating Player 1");
@@ -113,7 +119,7 @@ namespace Photon.Pun.Demo.PunBasics
                         player2 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
                     }*/
                 
-            }
+            //}
             
         }
         // Update Method
@@ -121,6 +127,30 @@ namespace Photon.Pun.Demo.PunBasics
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
+            GameObject[] spawnPos;
+            Transform spawnAt = null;
+
+            if (player1 == null&&team!=100)
+            {
+                spawnPos = (team == 0) ? team1Spawn.GetComponent<SpawningPos>().spawnPos : team2Spawn.GetComponent<SpawningPos>().spawnPos;
+                if (team == 0)
+                {
+                    if (PV.IsMine)
+                    {
+                        spawnAt = spawnPos[0].transform;
+                        player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
+                    }
+                }
+                else
+                {
+                    if (PV.IsMine)
+                    {
+                        spawnAt = spawnPos[0].transform;
+                        player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
+                    }
+                }
+            }
+
         }
 
         // Photon Methods
@@ -133,13 +163,15 @@ namespace Photon.Pun.Demo.PunBasics
                 PhotonNetwork.LoadLevel("Lobby");
             }
         }
-
         //Helper Methods
         [PunRPC]
-        void RPC_GetTeam()
+        void RPC_GetTeam(Player p)
         {
-            Player p = PhotonNetwork.LocalPlayer;
+            teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
+            team0 = teamMembers[0];
+            team1 = teamMembers[1];
             team = team0.Contains(p) ? 0 : 1;
+            PV.RPC("RPC_SendTeam", RpcTarget.OthersBuffered, team);
         }
 
         [PunRPC]

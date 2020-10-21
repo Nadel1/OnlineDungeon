@@ -2493,6 +2493,7 @@ GameObject:
   - component: {fileID: 2057530359}
   - component: {fileID: 2057530360}
   - component: {fileID: 2057530361}
+  - component: {fileID: 2057530362}
   m_Layer: 0
   m_Name: LaunchManager
   m_TagString: DDOL
@@ -2537,6 +2538,8 @@ MonoBehaviour:
   roomJoinUI: {fileID: 26504975}
   buttonLoadArena: {fileID: 520070538}
   buttonJoinRoom: {fileID: 386489454}
+  team: 0
+  PV: {fileID: 2057530362}
 --- !u!114 &2057530361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2549,6 +2552,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e35b59d1b9dffd488e94ff8ce6e93fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2057530362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057530358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 2
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2120827226
 GameObject:
   m_ObjectHideFlags: 0

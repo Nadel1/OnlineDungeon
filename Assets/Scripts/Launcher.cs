@@ -241,19 +241,6 @@ namespace Photon.Pun.Demo.PunBasics
         }
 
 
-        //Helper Methods
-        [PunRPC]
-        void RPC_GetTeam()
-        {
-            Player p = PhotonNetwork.LocalPlayer;
-            team = team0.Contains(p) ? 0 : 1;
-            PV.RPC("RPC_SendTeam", RpcTarget.OthersBuffered,team);
-        }
 
-        [PunRPC]
-        void RPC_SendTeam(int team)
-        {
-            this.team = team;
-        }
     }
 }
