@@ -71,11 +71,11 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 PV.RPC("RPC_GetTeam", RpcTarget.MasterClient,PhotonNetwork.LocalPlayer);
             }
-            
-                //teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
-                //team0 = teamMembers[0];
-                //team1 = teamMembers[1];
-                
+            PhotonNetwork.Instantiate("Player", new Vector3(0,0,0), Quaternion.identity, 0);
+            //teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
+            //team0 = teamMembers[0];
+            //team1 = teamMembers[1];
+
             /*
                 if (!PhotonNetwork.IsConnected)
                 {
@@ -99,28 +99,28 @@ namespace Photon.Pun.Demo.PunBasics
 
                     index = team0.Contains(p) ? team0.IndexOf(p) : team1.IndexOf(p);
                     spawnAt = spawnPos[index].transform;*/
-                    /*for (int i = 0; i < spawnPos.Length; i++)
-                    {
-                        if (spawnPos[i] == null)
-                        {
-                            spawnAt = spawnPos[i].transform;
-                            break;
-                        }
-                    }*/
+            /*for (int i = 0; i < spawnPos.Length; i++)
+            {
+                if (spawnPos[i] == null)
+                {
+                    spawnAt = spawnPos[i].transform;
+                    break;
+                }
+            }*/
 
-                  // player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
-                    /*if (PhotonNetwork.IsMasterClient)
-                    {
-                        Debug.Log("Instantiating Player 1");
-                        player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
-                    }
-                    else
-                    {
-                        player2 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
-                    }*/
-                
+            // player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
+            /*if (PhotonNetwork.IsMasterClient)
+            {
+                Debug.Log("Instantiating Player 1");
+                player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
+            }
+            else
+            {
+                player2 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
+            }*/
+
             //}
-            
+
         }
         // Update Method
         private void Update()
