@@ -80,7 +80,6 @@ namespace Photon.Pun.Demo.PunBasics
         private List<Player> team0 = new List<Player>();
         private List<Player> team1 = new List<Player>();
         public int team;
-        public PhotonView PV;
 
         // Start Method
         private void Start()
@@ -92,7 +91,7 @@ namespace Photon.Pun.Demo.PunBasics
             buttonLoadArena.SetActive(false);
 
             ConnectToPhoton();
-            PV = GetComponent<PhotonView>();
+
         }
 
         private void Awake()
@@ -219,7 +218,7 @@ namespace Photon.Pun.Demo.PunBasics
                 }
             }
             team0 = teamMembers[0];
-            team1 = teamMembers[1];
+            team1 = teamMembers[teamMembers.Count-1];
 
             /*
             for (int j = 0; j < teamMembers[0].Count; j++)

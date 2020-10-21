@@ -169,7 +169,7 @@ namespace Photon.Pun.Demo.PunBasics
         {
             teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
             team0 = teamMembers[0];
-            team1 = teamMembers[1];
+            //team1 = teamMembers[teamMembers.Count-1];
             team = team0.Contains(p) ? 0 : 1;
             PV.RPC("RPC_SendTeam", RpcTarget.OthersBuffered, team);
         }
