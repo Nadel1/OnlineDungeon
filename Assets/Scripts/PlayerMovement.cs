@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         if (PV.IsMine)
         {
             Movement();
-            Turning();
+            //Turning();
             cam.SetActive(true);
         }
         else
