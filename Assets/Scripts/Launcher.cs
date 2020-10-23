@@ -219,23 +219,6 @@ namespace Photon.Pun.Demo.PunBasics
             }
             team0 = teamMembers[0];
             team1 = teamMembers[teamMembers.Count-1];
-
-            /*
-            for (int j = 0; j < teamMembers[0].Count; j++)
-            {
-                team0.Add(j, teamMembers[0][j]);
-            }
-            if (teamMembers.Count > 1)
-            {
-                for (int j = 0; j < teamMembers[1].Count; j++)
-                {
-                    team0.Add(j, teamMembers[0][j]);
-                }
-            }
-
-            PhotonNetwork.SetPlayerCustomProperties(team0);
-            PhotonNetwork.SetPlayerCustomProperties(team1);*/
-          
             PhotonNetwork.LoadLevel("Dungeon");
         }
 

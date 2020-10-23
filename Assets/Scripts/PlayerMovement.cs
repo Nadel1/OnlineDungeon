@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private GameObject team1Spawn;
     private GameObject team2Spawn;
 
+    public bool keyboard = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,25 +69,44 @@ public class PlayerMovement : MonoBehaviour
 
     private void GetInput()
     {
-        input.x = Input.GetAxisRaw("Horizontal");
-        input.y = Input.GetAxisRaw("Vertical");
-        
+
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.y = Input.GetAxisRaw("Vertical");
 
     }
     float x, y;
     private void Movement()
     {
-        Vector3 movement=Vector3.zero;
-        rb.AddForce(Vector3.down * Time.deltaTime * 10);
-       
-        rb.AddForce(new Vector3(0,0,1) * input.y * moveSpeed * 100 * Time.fixedDeltaTime );
-        rb.AddForce(new Vector3(1, 0, 0) * input.x * moveSpeed * 100 * Time.fixedDeltaTime);
-        movement = Vector3.zero + new Vector3(1, 0, 0) * input.x + new Vector3(0, 0, 1) * input.y;
-        if (movement != Vector3.zero)
+        if (keyboard)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement.normalized), 0.8f);
+            Vector3 movement = Vector3.zero;
+            rb.AddForce(Vector3.down * Time.deltaTime * 10);
+
+            rb.AddForce(new Vector3(0, 0, 1) * input.y * moveSpeed * 100 * Time.fixedDeltaTime);
+            rb.AddForce(new Vector3(1, 0, 0) * input.x * moveSpeed * 100 * Time.fixedDeltaTime);
+            movement = Vector3.zero + new Vector3(1, 0, 0) * input.x + new Vector3(0, 0, 1) * input.y;
+            if (movement != Vector3.zero)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement.normalized), 0.8f);
+            }
+            Mathf.Clamp(rb.velocity.magnitude, 0, 5);
         }
-        Mathf.Clamp(rb.velocity.magnitude, 0, 5);
+        else
+        {
+            Vector3 movement = Vector3.zero;
+            rb.AddForce(Vector3.down * Time.deltaTime * 10);
+
+            rb.AddForce(transform.forward * input.y * moveSpeed * 100 * Time.fixedDeltaTime);
+            rb.AddForce(transform.right* input.x * moveSpeed * 100 * Time.fixedDeltaTime);
+            movement = Vector3.zero + transform.right * input.x + transform.forward * input.y;
+            if (movement != Vector3.zero)
+            {
+                float angle = Mathf.Atan2(Input.mousePosition.y, Input.mousePosition.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+            }
+            Mathf.Clamp(rb.velocity.magnitude, 0, 5);
+        }
+       
     }
     private void Turning()
     {

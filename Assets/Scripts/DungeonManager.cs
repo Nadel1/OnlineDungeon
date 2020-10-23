@@ -74,55 +74,6 @@ namespace Photon.Pun.Demo.PunBasics
             player1=PhotonNetwork.Instantiate("Player", new Vector3(0,0,0), Quaternion.identity, 0);
             player1.GetComponentInChildren<PlayerMovement>().team = team;
 
-            //teamMembers = DDOL.GetComponent<Launcher>().GetTeamMembers();
-            //team0 = teamMembers[0];
-            //team1 = teamMembers[1];
-
-            /*
-                if (!PhotonNetwork.IsConnected)
-                {
-                    SceneManager.LoadScene("Launcher");
-                    return;
-                }
-
-
-                if (PlayerManager.LocalPlayerInstance == null)
-                {
-
-
-                    Player p = PhotonNetwork.LocalPlayer;
-                    team = team0.Contains(p) ? 0 : 1;
-                    GameObject[] spawnPos;
-                    Transform spawnAt = null;
-                    int index;
-                    spawnPos = (team == 0) ? team1Spawn.GetComponent<SpawningPos>().spawnPos : team2Spawn.GetComponent<SpawningPos>().spawnPos;
-
-                    spawnPos = team1Spawn.GetComponent<SpawningPos>().spawnPos;
-
-                    index = team0.Contains(p) ? team0.IndexOf(p) : team1.IndexOf(p);
-                    spawnAt = spawnPos[index].transform;*/
-            /*for (int i = 0; i < spawnPos.Length; i++)
-            {
-                if (spawnPos[i] == null)
-                {
-                    spawnAt = spawnPos[i].transform;
-                    break;
-                }
-            }*/
-
-            // player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
-            /*if (PhotonNetwork.IsMasterClient)
-            {
-                Debug.Log("Instantiating Player 1");
-                player1 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
-            }
-            else
-            {
-                player2 = PhotonNetwork.Instantiate("Player", spawnAt.position, spawnAt.rotation, 0);
-            }*/
-
-            //}
-
         }
         // Update Method
         private void Update()
