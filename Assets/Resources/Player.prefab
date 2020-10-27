@@ -118,7 +118,7 @@ MonoBehaviour:
   turnSpeed: 15
   cam: {fileID: 819726850873578681}
   team: 3
-  keyboard: 0
+  keyboard: 1
 --- !u!114 &227532442573569908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 4614976174853223602}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

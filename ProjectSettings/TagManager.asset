@@ -10,6 +10,7 @@ TagManager:
   - DDOL
   - spawn1
   - spawn2
+  - CoinsManager
   layers:
   - Default
   - TransparentFX
