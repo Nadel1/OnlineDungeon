@@ -16,7 +16,7 @@ public class CoinBehaviour : MonoBehaviour
         {
             coinsManager.GetComponent<CoinsSpawner>().DecreaseCount();
 
-            //increase score for team
+            other.GetComponent<ScoreManager>().score += 100;
             Destroy(this.gameObject);
         }
     }
