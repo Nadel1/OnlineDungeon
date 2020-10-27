@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class ClockBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float time = 60 * 4;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (time > 0)
+        {
+            time -= Time.deltaTime;
+        }
+        else
+        {
+            //End game
+        }
     }
 }
