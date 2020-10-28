@@ -40,11 +40,11 @@ public class PlayerMovement : MonoBehaviour
         
             if (team == 0)
             {
-                transform.position = team1Spawn.transform.position;
+                transform.position = team1Spawn.GetComponent<SpawningPos>().nextSpawn().position;
             }
             else
             {
-                transform.position = team2Spawn.transform.position;
+                transform.position = team2Spawn.GetComponent<SpawningPos>().nextSpawn().position;
             }
 
         StartCoroutine(Unblock());
