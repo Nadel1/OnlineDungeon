@@ -120,6 +120,7 @@ MonoBehaviour:
   cam: {fileID: 819726850873578681}
   team: 3
   keyboard: 1
+  enableMovement: 0
 --- !u!114 &227532442573569908
 MonoBehaviour:
   m_ObjectHideFlags: 0

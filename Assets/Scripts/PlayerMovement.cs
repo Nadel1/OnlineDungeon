@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject team2Spawn;
 
     public bool keyboard = true;
+    public bool enableMovement = false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,13 +47,21 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = team2Spawn.transform.position;
             }
 
+        StartCoroutine(Unblock());
+    }
+
+    IEnumerator Unblock()
+    {
+        yield return new WaitForSeconds(3);
+        enableMovement = true;
     }
 
     private void FixedUpdate()
     {
         if (PV.IsMine)
         {
-            Movement();
+            if(enableMovement)
+                Movement();
             //Turning();
             cam.SetActive(true);
         }
